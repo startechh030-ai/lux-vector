@@ -14,5 +14,3 @@ npm run dev
 Metallic chain, neon pulses, volumetric clouds, swipe to break / scatter, auto-reform.
 
 See `ARCHITECTURE.md` for the full map.
-# lux-vector
-# lux-vector
