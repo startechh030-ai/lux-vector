@@ -26,7 +26,7 @@ export default function HeroOverlay() {
         </p>
       </div>
 
-      <p className="hint">Cross the chain to snap it · Sweep the clouds to scatter them</p>
+      <p className="hint">Cross the moving chain to snap it · Sweep the clouds to scatter them</p>
     </div>
   )
 }

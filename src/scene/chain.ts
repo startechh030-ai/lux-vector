@@ -51,33 +51,23 @@ type Ring = {
   phase: number
 }
 
-function stadiumPath(length: number, width: number, segs: number) {
-  const r = width * 0.5
-  const straight = Math.max(0.02, length - width)
-  const half = straight * 0.5
-  const nCap = Math.max(10, Math.floor(segs * 0.35))
-  const nStr = Math.max(4, Math.floor(segs * 0.15))
-  const pts: Vector3[] = []
-  const push = (x: number, y: number) => pts.push(new Vector3(x, y, 0))
-
-  for (let i = 0; i < nStr; i += 1) {
-    const t = i / nStr
-    push(half - t * straight, r)
-  }
-  for (let i = 0; i <= nCap; i += 1) {
-    const a = Math.PI * 0.5 + (i / nCap) * Math.PI
-    push(-half + Math.cos(a) * r, Math.sin(a) * r)
-  }
-  for (let i = 0; i < nStr; i += 1) {
-    const t = i / nStr
-    push(-half + t * straight, -r)
-  }
-  for (let i = 0; i <= nCap; i += 1) {
-    const a = -Math.PI * 0.5 + (i / nCap) * Math.PI
-    push(half + Math.cos(a) * r, Math.sin(a) * r)
-  }
-  pts.push(pts[0].clone())
-  return pts
+function createLinkPrototype(scene: Scene, quality: Quality) {
+  const mesh = MeshBuilder.CreateTorus(
+    'linkProto',
+    {
+      diameter: quality.linkWidth,
+      thickness: quality.tubeRadius * 2,
+      tessellation: quality.linkPathSegs,
+    },
+    scene,
+  )
+  mesh.scaling.x = quality.linkLength / quality.linkWidth
+  mesh.bakeCurrentTransformIntoVertices()
+  mesh.scaling.setAll(1)
+  mesh.isVisible = false
+  mesh.isPickable = false
+  mesh.position.set(0, -400, 0)
+  return mesh
 }
 
 function makeMetal(scene: Scene, name: string, albedo: Color3, roughness: number, scratch: Texture) {
@@ -114,27 +104,15 @@ function poseLink(link: Link, mobile: boolean, time: number, wave = 0) {
 export function createChain(scene: Scene, quality: Quality, textures: SceneTextures) {
   const mobile = quality.mobile
   const worldLen = pathLength(mobile)
-  const spacing = quality.linkLength * 0.43
-  const count = Math.max(14, Math.round(worldLen / spacing))
-  const scrollSpeed = mobile ? 0.042 : 0.038
+  const spacing = quality.linkLength * 0.48
+  const count = Math.max(16, Math.round(worldLen / spacing))
+  const scrollSpeed = mobile ? 0.085 : 0.07
 
   const scratch = textures.scratch
   const matA = makeMetal(scene, 'chainA', new Color3(0.48, 0.45, 0.56), 0.2, scratch)
   const matB = makeMetal(scene, 'chainB', new Color3(0.36, 0.33, 0.44), 0.28, scratch)
 
-  const proto = MeshBuilder.CreateTube(
-    'linkProto',
-    {
-      path: stadiumPath(quality.linkLength, quality.linkWidth, quality.linkPathSegs),
-      radius: quality.tubeRadius,
-      tessellation: quality.tubeSegs,
-      cap: Mesh.NO_CAP,
-    },
-    scene,
-  )
-  proto.isVisible = false
-  proto.isPickable = false
-  proto.position.set(0, -400, 0)
+  const proto = createLinkPrototype(scene, quality)
 
   const links: Link[] = []
   for (let i = 0; i < count; i += 1) {

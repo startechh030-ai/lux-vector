@@ -19,10 +19,10 @@ export function detectQuality(): Quality {
     bloomKernel: mobile ? 28 : 56,
     cloudTex: mobile ? 256 : 384,
     ringTex: 256,
-    linkPathSegs: mobile ? 36 : 56,
-    tubeSegs: mobile ? 8 : 12,
-    linkLength: mobile ? 1.42 : 1.28,
-    linkWidth: mobile ? 0.74 : 0.66,
-    tubeRadius: mobile ? 0.118 : 0.108,
+    linkPathSegs: mobile ? 40 : 64,
+    tubeSegs: mobile ? 12 : 18,
+    linkLength: mobile ? 1.92 : 1.78,
+    linkWidth: mobile ? 0.78 : 0.7,
+    tubeRadius: mobile ? 0.13 : 0.118,
   }
 }

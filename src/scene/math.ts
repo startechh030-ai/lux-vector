@@ -29,15 +29,15 @@ export function frameFromTangent(t: Vector3) {
 }
 
 export function linkRotation(tangent: Vector3, hole: Vector3) {
-  const z = hole.clone().normalize()
+  const y = hole.clone().normalize()
   const x = tangent.clone().normalize()
-  x.subtractInPlace(z.scale(Vector3.Dot(x, z)))
+  x.subtractInPlace(y.scale(Vector3.Dot(x, y)))
   if (x.lengthSquared() < 1e-6) {
     x.copyFromFloats(1, 0, 0)
-    x.subtractInPlace(z.scale(Vector3.Dot(x, z)))
+    x.subtractInPlace(y.scale(Vector3.Dot(x, y)))
   }
   x.normalize()
-  const y = Vector3.Cross(z, x).normalize()
+  const z = Vector3.Cross(x, y).normalize()
   return Quaternion.FromLookDirectionLH(z, y)
 }
 
