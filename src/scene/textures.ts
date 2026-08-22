@@ -59,11 +59,11 @@ export function createCloudTexture(scene: Scene, size: number, seed = 1) {
       const wisps = Math.max(0, n * 0.78 + n2 * 0.28 - 0.18)
       const alpha = Math.min(1, shape * wisps * 2.15)
       const i = (y * size + x) * 4
-      const lift = 210 + n * 45
+      const lift = 168 + n * 50
       data.data[i] = Math.min(255, lift)
-      data.data[i + 1] = Math.min(255, 188 + n * 40)
-      data.data[i + 2] = 255
-      data.data[i + 3] = Math.floor(alpha * 255)
+      data.data[i + 1] = Math.min(255, lift + 4)
+      data.data[i + 2] = Math.min(255, lift + 10)
+      data.data[i + 3] = Math.floor(alpha * 180)
     }
   }
 
@@ -94,8 +94,8 @@ export function createRingTexture(scene: Scene, size: number) {
       glow *= d < 0.46 ? 1 : Math.max(0, 1 - (d - 0.46) * 18)
       const i = (y * size + x) * 4
       data.data[i] = 255
-      data.data[i + 1] = 92
-      data.data[i + 2] = 255
+      data.data[i + 1] = 120
+      data.data[i + 2] = 230
       data.data[i + 3] = Math.min(255, Math.floor(glow * 255))
     }
   }
@@ -113,8 +113,8 @@ export function createSoftDot(scene: Scene, size = 128) {
   const ctx = tex.getContext()
   const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2)
   g.addColorStop(0, 'rgba(255,255,255,1)')
-  g.addColorStop(0.35, 'rgba(236,200,255,0.55)')
-  g.addColorStop(1, 'rgba(160,80,255,0)')
+  g.addColorStop(0.35, 'rgba(200,230,255,0.45)')
+  g.addColorStop(1, 'rgba(80,80,90,0)')
   ctx.fillStyle = g
   ctx.fillRect(0, 0, size, size)
   tex.update(false)
@@ -153,28 +153,27 @@ function paintFace(kind: string, size: number) {
   const g = ctx.createLinearGradient(0, 0, size, size)
 
   if (kind === 'py') {
-    g.addColorStop(0, '#ead9ff')
-    g.addColorStop(0.45, '#8b5cf6')
-    g.addColorStop(1, '#2a1544')
+    g.addColorStop(0, '#2a2c30')
+    g.addColorStop(0.5, '#0a0a0c')
+    g.addColorStop(1, '#000000')
   } else if (kind === 'ny') {
-    g.addColorStop(0, '#140816')
-    g.addColorStop(1, '#050208')
+    g.addColorStop(0, '#050505')
+    g.addColorStop(1, '#000000')
   } else if (kind === 'px') {
-    g.addColorStop(0, '#2a0d28')
-    g.addColorStop(0.5, '#e879f9')
-    g.addColorStop(1, '#1a0824')
+    g.addColorStop(0, '#050508')
+    g.addColorStop(0.5, '#1a0e16')
+    g.addColorStop(1, '#000000')
   } else if (kind === 'nx') {
-    g.addColorStop(0, '#0b1024')
-    g.addColorStop(0.6, '#4338ca')
-    g.addColorStop(1, '#120818')
+    g.addColorStop(0, '#04060a')
+    g.addColorStop(0.55, '#0a1418')
+    g.addColorStop(1, '#000000')
   } else if (kind === 'pz') {
-    g.addColorStop(0, '#241036')
-    g.addColorStop(0.5, '#c084fc')
-    g.addColorStop(1, '#0c0614')
+    g.addColorStop(0, '#08080a')
+    g.addColorStop(0.45, '#12141a')
+    g.addColorStop(1, '#000000')
   } else {
-    g.addColorStop(0, '#120814')
-    g.addColorStop(0.55, '#3b0764')
-    g.addColorStop(1, '#050208')
+    g.addColorStop(0, '#000000')
+    g.addColorStop(1, '#050506')
   }
 
   ctx.fillStyle = g

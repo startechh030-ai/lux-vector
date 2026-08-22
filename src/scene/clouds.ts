@@ -55,9 +55,9 @@ function cloudMaterial(scene: Scene, texture: SceneTextures['cloudA'], tint: Col
 
 export function createClouds(scene: Scene, quality: Quality, textures: SceneTextures) {
   const mats = [
-    cloudMaterial(scene, textures.cloudA, new Color3(0.9, 0.82, 1), 'a'),
-    cloudMaterial(scene, textures.cloudB, new Color3(0.78, 0.7, 0.98), 'b'),
-    cloudMaterial(scene, textures.cloudA, new Color3(0.96, 0.9, 1), 'c'),
+    cloudMaterial(scene, textures.cloudA, new Color3(0.42, 0.44, 0.48), 'a'),
+    cloudMaterial(scene, textures.cloudB, new Color3(0.32, 0.34, 0.38), 'b'),
+    cloudMaterial(scene, textures.cloudA, new Color3(0.5, 0.52, 0.55), 'c'),
   ]
 
   const clusters: Cluster[] = SPECS.map((spec, ci) => {
@@ -180,7 +180,7 @@ export function createClouds(scene: Scene, quality: Quality, textures: SceneText
         puff.mesh.position.x += windX
         puff.mesh.position.y += windY
         puff.mesh.scaling.setAll(formed * billow)
-        puff.mesh.visibility = formed
+        puff.mesh.visibility = formed * 0.42
         puff.mesh.rotation.z += puff.spin * dt
       }
     }

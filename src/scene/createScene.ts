@@ -25,29 +25,29 @@ import {
 } from './textures'
 
 function setupLights(scene: Scene, mobile: boolean) {
-  const hemi = new HemisphericLight('hemi', new Vector3(0.15, 1, -0.35), scene)
-  hemi.intensity = 0.36
-  hemi.diffuse = new Color3(0.72, 0.64, 0.95)
-  hemi.groundColor = new Color3(0.08, 0.03, 0.12)
-  hemi.specular = new Color3(0.55, 0.4, 0.8)
+  const hemi = new HemisphericLight('hemi', new Vector3(0.1, 1, -0.2), scene)
+  hemi.intensity = 0.18
+  hemi.diffuse = new Color3(0.72, 0.74, 0.78)
+  hemi.groundColor = new Color3(0.02, 0.02, 0.03)
+  hemi.specular = new Color3(0.55, 0.55, 0.6)
 
-  const key = new DirectionalLight('key', new Vector3(-0.45, -0.7, 0.55), scene)
-  key.intensity = 1.22
-  key.diffuse = new Color3(1, 0.94, 1)
+  const key = new DirectionalLight('key', new Vector3(-0.35, -0.8, 0.45), scene)
+  key.intensity = 1.35
+  key.diffuse = new Color3(1, 0.98, 0.96)
 
-  const rim = new DirectionalLight('rim', new Vector3(0.65, 0.15, 0.55), scene)
-  rim.intensity = 0.62
-  rim.diffuse = new Color3(0.86, 0.4, 1)
+  const rim = new DirectionalLight('rim', new Vector3(0.75, 0.05, 0.4), scene)
+  rim.intensity = 0.55
+  rim.diffuse = new Color3(0.45, 0.9, 1)
 
-  const neon = new PointLight('neon', new Vector3(mobile ? 0 : -1.2, 0.5, 1.5), scene)
-  neon.intensity = 20
-  neon.diffuse = new Color3(0.95, 0.25, 1)
-  neon.range = 18
+  const neon = new PointLight('neon', new Vector3(mobile ? 0.2 : -0.8, 0.4, 1.6), scene)
+  neon.intensity = 14
+  neon.diffuse = new Color3(1, 0.28, 0.78)
+  neon.range = 16
 
-  const fill = new PointLight('fill', new Vector3(4.2, -2.0, 2.2), scene)
-  fill.intensity = 8
-  fill.diffuse = new Color3(0.7, 0.55, 1)
-  fill.range = 14
+  const fill = new PointLight('fill', new Vector3(3.8, -1.6, 2.4), scene)
+  fill.intensity = 6
+  fill.diffuse = new Color3(0.55, 0.85, 1)
+  fill.range = 13
 }
 
 function setupPost(scene: Scene, camera: FreeCamera, quality: ReturnType<typeof detectQuality>) {
@@ -62,12 +62,12 @@ function setupPost(scene: Scene, camera: FreeCamera, quality: ReturnType<typeof 
   pipeline.imageProcessingEnabled = true
   pipeline.imageProcessing.toneMappingEnabled = true
   pipeline.imageProcessing.toneMappingType = ImageProcessingConfiguration.TONEMAPPING_ACES
-  pipeline.imageProcessing.exposure = 1.14
-  pipeline.imageProcessing.contrast = 1.16
+  pipeline.imageProcessing.exposure = 1.05
+  pipeline.imageProcessing.contrast = 1.2
   pipeline.imageProcessing.vignetteEnabled = true
-  pipeline.imageProcessing.vignetteWeight = 2.6
-  pipeline.imageProcessing.vignetteStretch = 0.15
-  pipeline.imageProcessing.vignetteColor = new Color4(0.02, 0, 0.05, 1)
+  pipeline.imageProcessing.vignetteWeight = 3.2
+  pipeline.imageProcessing.vignetteStretch = 0.08
+  pipeline.imageProcessing.vignetteColor = new Color4(0, 0, 0, 1)
 
   const glow = new GlowLayer('glow', scene, { blurKernelSize: quality.mobile ? 24 : 36 })
   glow.intensity = 0.6
@@ -80,9 +80,9 @@ function setupDust(scene: Scene, texture: ReturnType<typeof createSoftDot>) {
   ps.emitter = Vector3.Zero()
   ps.minEmitBox = new Vector3(-10, -6, -3)
   ps.maxEmitBox = new Vector3(10, 6, 3)
-  ps.color1 = new Color4(0.86, 0.55, 1, 0.35)
-  ps.color2 = new Color4(1, 0.85, 1, 0.12)
-  ps.colorDead = new Color4(0.4, 0.2, 0.6, 0)
+  ps.color1 = new Color4(0.85, 0.95, 1, 0.28)
+  ps.color2 = new Color4(1, 0.7, 0.9, 0.1)
+  ps.colorDead = new Color4(0.1, 0.1, 0.12, 0)
   ps.minSize = 0.02
   ps.maxSize = 0.08
   ps.minLifeTime = 3
@@ -110,10 +110,10 @@ export function bootHero(canvas: HTMLCanvasElement) {
   engine.setHardwareScalingLevel(quality.hardwareScaling)
 
   const scene = new Scene(engine)
-  scene.clearColor = new Color4(0.027, 0.016, 0.047, 1)
+  scene.clearColor = new Color4(0, 0, 0, 1)
   scene.fogMode = Scene.FOGMODE_EXP2
-  scene.fogDensity = 0.015
-  scene.fogColor = new Color3(0.05, 0.02, 0.09)
+  scene.fogDensity = 0.008
+  scene.fogColor = new Color3(0, 0, 0)
   scene.skipPointerMovePicking = true
   scene.constantlyUpdateMeshUnderPointer = false
 
@@ -128,7 +128,7 @@ export function bootHero(canvas: HTMLCanvasElement) {
   camera.maxZ = 80
 
   scene.environmentTexture = createEnvCube(scene)
-  scene.environmentIntensity = 0.92
+  scene.environmentIntensity = 0.55
 
   setupLights(scene, quality.mobile)
 

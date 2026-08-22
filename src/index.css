@@ -1,9 +1,9 @@
 :root {
-  --bg: #07040c;
-  --ink: #f7f4ff;
-  --muted: #c6b4e4;
-  --accent: #e879f9;
-  --line: rgba(255, 255, 255, 0.22);
+  --bg: #000000;
+  --ink: #f4f4f5;
+  --muted: #9a9aa3;
+  --accent: #ff4dce;
+  --line: rgba(255, 255, 255, 0.18);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -57,8 +57,8 @@ a {
   z-index: 2;
   pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 38%, rgba(6, 2, 12, 0.28) 68%, rgba(6, 2, 12, 0.55) 100%),
-    linear-gradient(180deg, rgba(6, 2, 12, 0.28) 0%, transparent 22%, transparent 72%, rgba(6, 2, 12, 0.45) 100%);
+    linear-gradient(90deg, transparent 42%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.55) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 22%, transparent 74%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .hero-grain {
@@ -113,14 +113,14 @@ a {
   width: 56px;
   height: 2px;
   margin: 22px 0 18px;
-  background: linear-gradient(90deg, #f5d0fe, #c026d3 55%, transparent);
+  background: linear-gradient(90deg, #ffffff, #7af0ff 40%, #ff4dce 70%, transparent);
 }
 
 .mantra {
   font-size: clamp(18px, 1.7vw, 26px);
   font-weight: 400;
   letter-spacing: 0.01em;
-  color: #efe7ff;
+  color: #e8e8ee;
 }
 
 .lede {
@@ -139,19 +139,19 @@ a {
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(230, 214, 255, 0.55);
+  color: rgba(210, 210, 218, 0.45);
 }
 
 .logo {
   width: 52px;
   height: 52px;
-  filter: drop-shadow(0 0 12px rgba(192, 38, 211, 0.45));
+  filter: drop-shadow(0 0 12px rgba(255, 77, 206, 0.35));
 }
 
 @media (max-width: 860px) {
   .hero-overlay {
     background:
-      linear-gradient(180deg, rgba(6, 2, 12, 0.62) 0%, rgba(6, 2, 12, 0.12) 26%, transparent 40%, rgba(6, 2, 12, 0.55) 100%);
+      linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.12) 24%, transparent 40%, rgba(0, 0, 0, 0.62) 100%);
   }
 
   .brand {
